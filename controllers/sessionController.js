@@ -14,6 +14,7 @@ const registerDo = async (req, res, next) => {
 
   try {
     await User.create(req.body);
+    req.flash("info", "Profile successfully created. Please sign-in.");
   } catch (e) {
     if (e.constructor.name === "ValidationError") {
       parse_v(e, req);

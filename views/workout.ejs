@@ -1,0 +1,30 @@
+<%- include("partials/head.ejs") %> 
+<%- include("partials/header.ejs") %>
+
+<h2><%= workout ? "Edit Workout" : "Add New Workout" %></h2>
+
+<form method="POST" action="<%= workout ? "workouts/update/" + workout.id : "/workouts" %>">
+<input type="hidden" name="_csrf" value="<%= _csrf %>" />
+    <label name="workoutType">Workout:</label>
+        <input type="text" id="workoutType" name="workoutType" value="<%= workout ? workout.workoutType : "" %>" required />
+
+    <label name="duration">Duration:</label>
+        <input type="text" id="duration" name="duration" value="<%= workout ? workout.duration : "" %>" required />
+
+    <label name="intensity">Intensity:</label>
+    <select id="intensity" name="intensity">
+        <option value="low" <%= workout && workout.intensity === "low" ? "selected" : "" %> >Low</option>
+        <option value="moderate" <%= workout && workout.intensity === "moderate" ? "selected" : "" %> >Moderate</option>
+        <option value="high" <%= workout && workout.intensity === "high" ? "selected" : "" %> >High</option>
+</select>
+    <label name="notes">Description:</label>
+        <input type="text" id="notes" name="notes" value="<%= workout ? workout.notes : "" %>" />
+
+
+    <button type="submit"><%= workout ? "Update Workout" : "Add Workout" %> Cancel</button>
+
+        
+</form>
+
+
+<%- include("partials/footer.ejs") %>
