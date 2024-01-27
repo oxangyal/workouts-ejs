@@ -3,7 +3,7 @@
 
 <h2><%= workout ? "Edit Workout" : "Add New Workout" %></h2>
 
-<form method="POST" action="<%= workout ? "workouts/update/" + workout.id : "/workouts" %>">
+<form method="POST" action="<%= workout ? "/workouts/update/" + workout.id : "/workouts" %>">
 <input type="hidden" name="_csrf" value="<%= _csrf %>" />
     <label name="workoutType">Workout:</label>
         <input type="text" id="workoutType" name="workoutType" value="<%= workout ? workout.workoutType : "" %>" required />
