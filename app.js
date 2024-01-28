@@ -2,6 +2,11 @@ const express = require('express');
 require('express-async-errors');
 require('dotenv').config();
 
+// extra security packages
+const helmet = require("helmet");
+const xss = require("xss-clean");
+const rateLimiter = require("express-rate-limit"); 
+
 const session = require('express-session');
 
 const app = express();
@@ -29,6 +34,14 @@ if (app.get('env') === 'production') {
   app.set('trust proxy', 1); // trust first proxy
   sessionParms.cookie.secure = true; // serve secure cookies
 }
+app.use(
+  rateLimiter({
+    windowMs: 15 * 60 * 1000, //15 min
+    max: 100 //limit each IP to 100 requests per windowMs
+  })
+);
+app.use(helmet());
+app.use(xss());
 
 app.use(session(sessionParms));
 const passport = require('passport');
