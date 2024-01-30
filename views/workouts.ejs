@@ -1,0 +1,40 @@
+<%- include("partials/head.ejs") %> 
+<%- include("partials/header.ejs") %>
+  <h2>Workouts List</h2>
+    <table id="workouts-table">
+      <tr id="workouts-table-header">
+        <th>Workout</th>
+        <th>Duration</th>
+        <th>Intensity</th>
+        <th>Description</th>
+        <th colspan="2"></th>
+      </tr>
+      <% if (workouts && workouts.length) { %>
+        <% workouts.forEach((workout) => { %>
+          <tr>
+            <td><%= workout.workoutType %></td>
+            <td><%= workout.duration %></td>
+            <td><%= workout.intensity %></td>
+            <td><%= workout.description %></td>
+          
+            <td>
+                <a href="/workouts/edit/<%= workout._id %>">
+                <button type="button">Edit</button>
+                </a>
+            </td>
+            <td>
+                <form method="POST" action="/workouts/delete/<%= workout._id %>" style="display: inline">
+                <button type="submit">Delete</button>
+                <input type="hidden" name="_csrf" value="<%= _csrf %>" />
+            </form>
+            </td>
+          </tr>
+        <% }) %>
+      <% } %>
+    </table>
+    
+                <a href="/workouts/new">
+                <button type="button">Create new workout</button>
+                </a>
+          
+    <%- include("partials/footer.ejs") %>
